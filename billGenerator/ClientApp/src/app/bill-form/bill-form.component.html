@@ -1,0 +1,101 @@
+<ng-container>
+  <mat-card>
+    <mat-card-title> Billing </mat-card-title>
+    <form [formGroup]="billFormGroup">
+      <table>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                Client Name:
+              </mat-label>
+              <input matInput formControlName="ClientName" placeholder="Ex. Bharath" required>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>Bill Date</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="BillDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1 ></mat-datepicker>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                Client Address
+              </mat-label>
+              <input matInput formControlName="ClientAddress" placeholder="Ex. No : #8,Dubai kuruku sandku,Dubai Bus Stand,Dubai">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                No Of Articles
+              </mat-label>
+              <input matInput formControlName="NoOfArticles" numbersOnly placeholder="Ex. 16">
+            </mat-form-field>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                KG
+              </mat-label>
+              <input matInput formControlName="Weight" placeholder="Ex. 96.69">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                Rate
+              </mat-label>
+              <input matInput formControlName="Rate" placeholder="Ex. 420.240">
+            </mat-form-field>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                CGST
+              </mat-label>
+              <input matInput formControlName="CGST" placeholder="Ex. 9">
+            </mat-form-field>
+          </td>
+          <td>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                SGST
+              </mat-label>
+              <input matInput formControlName="SGST" placeholder="Ex. 9">
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                IGST
+              </mat-label>
+              <input matInput formControlName="IGST" placeholder="Ex. 18">
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+
+      <button mat-raised-button color="primary" (click)="generatepdf()">Generate</button>
+
+    </form>
+  </mat-card>
+</ng-container>
