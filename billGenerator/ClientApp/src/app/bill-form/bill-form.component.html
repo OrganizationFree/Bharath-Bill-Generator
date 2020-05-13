@@ -2,7 +2,7 @@
   <mat-card>
     <mat-card-title> Billing </mat-card-title>
     <form [formGroup]="billFormGroup">
-      <table>
+      <table style="width: 100%" cellspacing="10">
         <tr>
           <td>
             <mat-form-field>
@@ -10,14 +10,21 @@
                 Client Name:
               </mat-label>
               <input matInput formControlName="ClientName" placeholder="Ex. Bharath" required>
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('ClientName').valid && billFormGroup.get('ClientName').touched">Please enter Client Name</span>
+              </mat-error>
             </mat-form-field>
           </td>
+          
           <td>
             <mat-form-field>
               <mat-label>Bill Date</mat-label>
               <input matInput [matDatepicker]="picker1" formControlName="BillDate">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('BillDate').valid && billFormGroup.get('BillDate').touched">Please Select Bill Date</span>
+              </mat-error>
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1 ></mat-datepicker>
+              <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
           </td>
         </tr>
@@ -28,15 +35,22 @@
               <mat-label>
                 Client Address
               </mat-label>
-              <input matInput formControlName="ClientAddress" placeholder="Ex. No : #8,Dubai kuruku sandku,Dubai Bus Stand,Dubai">
+              <input matInput formControlName="ClientAddress" placeholder="Ex. No : #8,3rd main, MLP, Bangalore-560086">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('ClientAddress').valid && billFormGroup.get('ClientAddress').touched">Please enter address</span>
+              </mat-error>
             </mat-form-field>
           </td>
+          
           <td>
             <mat-form-field>
               <mat-label>
                 No Of Articles
               </mat-label>
-              <input matInput formControlName="NoOfArticles" numbersOnly placeholder="Ex. 16">
+              <input matInput formControlName="NoOfArticles" oninput="this.value = this.value.replace(/[^0-9]/g,'');" maxlength="2" placeholder="Ex. 16">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('NoOfArticles').valid && billFormGroup.get('NoOfArticles').touched">Please enter No Of Articles</span>
+              </mat-error>
             </mat-form-field>
           </td>
 
@@ -47,48 +61,102 @@
               <mat-label>
                 KG
               </mat-label>
-              <input matInput formControlName="Weight" placeholder="Ex. 96.69">
+              <input matInput formControlName="Weight" oninput="this.value = this.value.replace(/[^0-9.]/g,'');" placeholder="Ex. 96.69">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('Weight').valid && billFormGroup.get('Weight').touched">Please enter Weight</span>
+              </mat-error>
             </mat-form-field>
           </td>
+
           <td>
             <mat-form-field>
               <mat-label>
                 Rate
               </mat-label>
-              <input matInput formControlName="Rate" placeholder="Ex. 420.240">
+              <input matInput formControlName="Rate" placeholder="Ex. 420.240"
+                     oninput="this.value = this.value.replace(/[^0-9\.]/g,'').replace(/\./, 'x').replace(/\./g, '').replace(/x/, '.');">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('Rate').valid && billFormGroup.get('Rate').touched">Please enter Rate</span>
+              </mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <mat-label>
+                Price
+              </mat-label>
+              <input matInput formControlName="Price" tabindex="-1" readonly/>
             </mat-form-field>
           </td>
 
         </tr>
         <tr>
           <td>
-            <mat-form-field>
-              <mat-label>
-                CGST
-              </mat-label>
-              <input matInput formControlName="CGST" placeholder="Ex. 9">
-            </mat-form-field>
-          </td>
-          <td>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field>
-              <mat-label>
-                SGST
-              </mat-label>
-              <input matInput formControlName="SGST" placeholder="Ex. 9">
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
+
+          
+                  <mat-form-field>
+                    <mat-label>
+                      CGST
+                    </mat-label>
+                    <input matInput formControlName="CGST" oninput="this.value = this.value.replace(/[^0-9]/g,'');" maxlength="2" placeholder="Ex. 9">
+                    <mat-error>
+                      <span *ngIf="!billFormGroup.get('CGST').valid && billFormGroup.get('CGST').touched">Please enter CGST</span>
+                    </mat-error>
+                  </mat-form-field>
+             
+               
+
+            
+
+           
+            </td>
+
+         
           <td>
             <mat-form-field>
               <mat-label>
                 IGST
               </mat-label>
-              <input matInput formControlName="IGST" placeholder="Ex. 18">
+              <input matInput formControlName="IGST" oninput="this.value = this.value.replace(/[^0-9]/g,'');" maxlength="2" placeholder="Ex. 18">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('IGST').valid && billFormGroup.get('IGST').touched">Please enter IGST</span>
+              </mat-error>
+            </mat-form-field>
+          </td>
+          
+          <td>
+            <mat-form-field>
+              <mat-label>
+                Tax
+              </mat-label>
+              <input matInput formControlName="Tax" tabindex="-1" readonly >              
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>          
+            <mat-form-field>
+              <mat-label>
+                SGST
+              </mat-label>
+              <input matInput formControlName="SGST" tabindex="-1" readonly oninput="this.value = this.value.replace(/[^0-9]/g,'');" maxlength="2" placeholder="Ex. 9">
+              <mat-error>
+                <span *ngIf="!billFormGroup.get('SGST').valid && billFormGroup.get('SGST').touched">Please enter SGST</span>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td></td>
+
+          <td>
+            <mat-form-field>
+              <mat-label>
+                Grand Total
+              </mat-label>
+              <input matInput formControlName="Total" tabindex="-1" readonly>
             </mat-form-field>
           </td>
         </tr>

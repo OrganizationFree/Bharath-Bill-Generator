@@ -18,7 +18,8 @@ export class billApiService {
   }
 
 
-  generatePDF(formDetails: billFormModel) {  
-    this._httpClient.post(this.baseUrl + "api/Bill/generatePdfsad", formDetails, {responseType:'text'}).subscribe();
+  generatePDF(formDetails: billFormModel) {
+    
+     this._httpClient.post(this.baseUrl + "api/Bill/generatePDF", formDetails, { responseType: 'text' }).subscribe((result: 'text') => console.log('result ' + result));
   }
 }

@@ -1,0 +1,27 @@
+<div mat-dialog-container>
+  <h1 mat-dialog-title *ngIf="style==1">{{title}}</h1>
+  <div mat-dialog-content>
+    <div class="message">
+      <p>
+        {{message}}
+      </p>
+    </div>
+    <div class="info" *ngIf="information!==''">
+      <p>{{information}}</p>
+    </div>
+  </div>
+  <div mat-dialog-actions style="float: right;">
+    <div *ngIf="button==0">
+      <button mat-raised-button color="primary" (click)="onOk()" tabindex="-1">OK</button>
+    </div>
+    <div *ngIf="button==1">
+      <button mat-raised-button color="primary" (click)="onOk()" tabindex="-1">OK</button>
+      <button mat-raised-button color="accent" (click)="onCancel()" tabindex="-1">CANCEL</button>
+    </div>
+    <div *ngIf="button==2">
+      <button mat-raised-button color="primary" (click)="onYes()" tabindex="-1">YES</button>
+      <button mat-raised-button color="accent" (click)="onNo()" tabindex="-1">NO</button>
+    </div>
+  </div>
+
+</div>

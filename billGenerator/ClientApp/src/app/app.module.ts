@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 
 import { BillFormComponent } from './bill-form/bill-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule, MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { billApiService } from 'src/app/services/billApiService.service'
@@ -35,7 +35,8 @@ import { billApiService } from 'src/app/services/billApiService.service'
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,    
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   providers: [billApiService],
   bootstrap: [AppComponent]
