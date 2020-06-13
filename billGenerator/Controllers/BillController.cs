@@ -1,6 +1,8 @@
 ﻿using billGenerator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using billGenerator.BusiessLogic;
+
 
 namespace billGenerator.Controllers
 {
@@ -14,14 +16,15 @@ namespace billGenerator.Controllers
             try
             {
                 DateTime sad = new DateTime();
-                sad = bill.BillDate;
-                sad = sad.ToLocalTime();
+                bill.BillDate = bill.BillDate.ToLocalTime();
+                bill.AmountInWords = NumberToWords.ConvertAmount(bill.GrandTotal);
                 return 1;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return 0;
             }
         }
+
     }
 }
