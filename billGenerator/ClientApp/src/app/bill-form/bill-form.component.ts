@@ -117,13 +117,12 @@ export class BillFormComponent implements OnInit {
     console.log(this.billFormGroup.value);
     if (this.billFormGroup.valid) {
       let test = this._billApiService.generatePDF(this.billFormGroup.value);
-      console.log('gene test : ', test);
+        console.log('gene test : ', test);
     }
     else {
       this.billFormGroup.markAllAsTouched();
       this.showSnackBar('Please fill the required field with valid data and try again.', 'OK');
     }
-    //console.log(this.billFormGroup.value);
   }
 
   showSnackBar(message: string, action: string) {

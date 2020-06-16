@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { billFormModel } from 'src/app/Models/billFormModel';
-
+import { saveAs } from 'file-saver';
 
 @Injectable({
 providedIn:'root'
@@ -17,9 +17,19 @@ export class billApiService {
     this.baseUrl = baseUrl;
   }
 
-
-  generatePDF(formDetails: billFormModel) {
-    
-     this._httpClient.post(this.baseUrl + "api/Bill/generatePDF", formDetails, { responseType: 'text' }).subscribe((result: 'text') => console.log('result ' + result));
+  generatePDF(formDetails: billFormModel): any {
+    var mediaType = 'application/pdf';
+    this._httpClient.post(this.baseUrl + "api/Bill/generatePDF", formDetails, { responseType: 'blob' }).subscribe(
+      (response) => {
+        var blob = new Blob([response], { type: mediaType });
+        saveAs(blob, 'NMC_Bill.pdf');
+      },
+      e => {
+         //throwError(e);
+      }
+    );
   }
+
+
+
 }
