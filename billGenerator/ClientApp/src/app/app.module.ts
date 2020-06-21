@@ -14,12 +14,14 @@ import { MatInputModule } from '@angular/material/input';
 import { billApiService } from 'src/app/services/billApiService.service';
 import { MatIconModule } from '@angular/material/icon';
 import { saveAs } from 'file-saver';
+import { BillComponent } from './bill/bill.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BillFormComponent,
+    BillComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { saveAs } from 'file-saver';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'billForm', component: BillFormComponent},
-      { path: '', redirectTo:'billForm',pathMatch: 'full' }
+      { path: '', redirectTo:'billForm',pathMatch: 'full' },
+      { path: 'bill', component: BillComponent}
     ]),
     BrowserAnimationsModule,
     MatButtonModule,
