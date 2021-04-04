@@ -14,12 +14,15 @@ namespace billGenerator.Models
         public int CGST { get; set; }
         public int SGST { get; set; }
         public int IGST { get; set; }
-        public float Tax { get; set; }
-        public float GrandTotal { get; set; }
+        public decimal Tax { get; set; }
+        public decimal GrandTotal { get; set; }
         public string AmountInWords { get; set; }
         public string GSTIN { get; set; }
         public string Transport { get; set; }
         public Items[] Items { get; set; }
         public decimal TotalPrice { get; set; }
+        public decimal RoundOff { get; set; }
+        public int BillNo { get; set; }
+
     }
 }

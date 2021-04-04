@@ -29,9 +29,9 @@ namespace billGenerator.BusiessLogic
                     return Convert(amount_int) + " Point " + Convert(amount_dec) + " Only.";
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                // TODO: handle exception  
+                // TODO: handle exception  ng 
             }
             return "";
         }

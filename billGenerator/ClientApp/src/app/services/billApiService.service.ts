@@ -17,15 +17,28 @@ export class billApiService {
     this.baseUrl = baseUrl;
   }
 
-  generatePDF(formDetails: billFormModel): any {
+  generateInvoice(formDetails: billFormModel): any {
     var mediaType = 'application/pdf';
-    this._httpClient.post(this.baseUrl + "api/Bill/generatePDF", formDetails, { responseType: 'blob' }).subscribe(
+    this._httpClient.post(this.baseUrl + "api/Bill/generateInvoice", formDetails, { responseType: 'blob' }).subscribe(
       (response) => {
         var blob = new Blob([response], { type: mediaType });
         saveAs(blob, 'NMC_Bill.pdf');
       },
       e => {
          //throwError(e);
+      }
+    );
+  }
+
+  generateEstimate(formDetails: billFormModel): any {
+    var mediaType = 'application/pdf';
+    this._httpClient.post(this.baseUrl + "api/Bill/generateEstimate", formDetails, { responseType: 'blob' }).subscribe(
+      (response) => {
+        var blob = new Blob([response], { type: mediaType });
+        saveAs(blob, 'NMC_Bill.pdf');
+      },
+      e => {
+        //throwError(e);
       }
     );
   }

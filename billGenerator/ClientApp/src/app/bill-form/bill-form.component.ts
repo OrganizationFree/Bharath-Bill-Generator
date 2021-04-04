@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component,Input, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators,FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { billApiService } from 'src/app/services/billApiService.service';
 import { billFormModel } from '../Models/billFormModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bill-form',
@@ -12,10 +13,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class BillFormComponent implements OnInit {
 
+  @Input() message: string;
+
   billFormGroup: FormGroup;
   btnDisable: boolean = true;
   baseUrl: string;
-
+  public href: string = "";
 
   initForm() {
     this.billFormGroup = this._fb.group({
@@ -24,7 +27,7 @@ export class BillFormComponent implements OnInit {
       'TotalPrice':['0'],
       'ClientName': [null, Validators.required],
       'ClientAddress': [null, Validators.required],
-      'BillDate': [null, Validators.required],
+      'BillDate': [new Date(), Validators.required],      
       'NoOfArticles': [null, Validators.required],
       'CGST': [null, Validators.required],
       'SGST': [null, Validators.required],
@@ -32,13 +35,14 @@ export class BillFormComponent implements OnInit {
       'GSTIN': [null,[Validators.required, Validators.pattern("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{1}[Z]{1}[A-Z0-9]{1}$")]],
       'Transport': [null],
       Items: this._fb.array([
-        this.addNewItem()
-        ])
+        this.addFirstNewItem()
+      ])
     });
   }
 
   constructor(private _fb: FormBuilder, private _http: HttpClient, @Inject('BASE_URL') baseUrl: string,
-    private _billApiService: billApiService, private _snackBar: MatSnackBar) {
+    private _billApiService: billApiService, private _snackBar: MatSnackBar,
+    private router: Router) {
     this.baseUrl = baseUrl;
   }
 
@@ -68,10 +72,6 @@ export class BillFormComponent implements OnInit {
       this.calculatePrice();
     });
 
-    //this.billFormGroup.controls['Items'].valueChanges.subscribe(value => {
-    //  this.calculatePrice();
-    //});
-
   }
 
   generateNewItem(): void {
@@ -86,7 +86,17 @@ export class BillFormComponent implements OnInit {
     return  this._fb.group({
       Weight: [0, Validators.required],
       Rate: [0, Validators.required],
-      Price: [0, Validators.required]
+      Price: [0, Validators.required],
+      Product: ['',Validators.required]
+    });
+  }
+
+  addFirstNewItem(): FormGroup {
+    return this._fb.group({
+      Weight: [0, Validators.required],
+      Rate: [0, Validators.required],
+      Price: [0, Validators.required],
+      Product: ['S.S. House Hold Untensils', Validators.required]
     });
   }
 
@@ -113,11 +123,23 @@ export class BillFormComponent implements OnInit {
     this.billFormGroup.controls['GrandTotal'].setValue(total.toFixed(2));
   }
 
-  generatepdf() {
+  generateInvoice() {
     console.log(this.billFormGroup.value);
     if (this.billFormGroup.valid) {
-      let test = this._billApiService.generatePDF(this.billFormGroup.value);
-        console.log('gene test : ', test);
+      let test = this._billApiService.generateInvoice(this.billFormGroup.value);
+      console.log('gene test : ', test);
+    }
+    else {
+      this.billFormGroup.markAllAsTouched();
+      this.showSnackBar('Please fill the required field with valid data and try again.', 'OK');
+    }
+  }
+
+  generateEstimate() {
+    console.log(this.billFormGroup.value);
+    if (this.billFormGroup.valid) {
+      let test = this._billApiService.generateEstimate(this.billFormGroup.value);
+      console.log('gene test : ', test);
     }
     else {
       this.billFormGroup.markAllAsTouched();

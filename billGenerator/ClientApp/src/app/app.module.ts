@@ -15,6 +15,7 @@ import { billApiService } from 'src/app/services/billApiService.service';
 import { MatIconModule } from '@angular/material/icon';
 import { saveAs } from 'file-saver';
 import { BillComponent } from './bill/bill.component';
+import { BillFormatComponent } from './bill-format/bill-format.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { BillComponent } from './bill/bill.component';
     HomeComponent,
     BillFormComponent,
     BillComponent,
+    BillFormatComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,7 +33,8 @@ import { BillComponent } from './bill/bill.component';
     RouterModule.forRoot([
       { path: 'billForm', component: BillFormComponent},
       { path: '', redirectTo:'billForm',pathMatch: 'full' },
-      { path: 'bill', component: BillComponent}
+      { path: 'bill', component: BillComponent },
+      { path: 'sample', component: BillFormatComponent }
     ]),
     BrowserAnimationsModule,
     MatButtonModule,
